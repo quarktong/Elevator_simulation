@@ -1,0 +1,244 @@
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;电梯调度算法优化对比分析&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .metric-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .metric-box:hover {
+            transform: translateY(-5px);
+        }
+        .metric-name {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .metric-values {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        .metric-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .original {
+            color: #5B9BD5;
+        }
+        .optimized {
+            color: #70AD47;
+        }
+        .improvement {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .chart-section {
+            margin-bottom: 40px;
+        }
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .chart-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .conclusion h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .success-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .details-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        .details-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #70AD47;
+        }
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;🚀 电梯调度算法优化效果对比分析&lt;/h1&gt;
+        &lt;p class="subtitle"&gt;山东大学中心校区7号楼电梯仿真系统优化报告&lt;/p&gt;
+
+        &lt;div class="summary-card"&gt;
+            &lt;h2 style="text-align: center; margin-bottom: 10px;"&gt;📊 实验配置&lt;/h2&gt;
+            &lt;p style="text-align: center; color: #666;"&gt;
+                实验次数：15次 &nbsp;&nbsp;|&nbsp;&nbsp; 仿真时长：300秒/次 &nbsp;&nbsp;|&nbsp;&nbsp; 实验时间：2026-05-10
+            &lt;/p&gt;
+
+            &lt;div class="summary-grid"&gt;
+                &lt;div class="metric-box"&gt;
+                    &lt;div class="metric-name"&gt;平均等待时间&lt;/div&gt;
+                    &lt;div class="metric-values"&gt;
+                        &lt;span class="metric-value original"&gt;53.50s&lt;/span&gt;
+                        &lt;span style="color: #999;"&gt;→&lt;/span&gt;
+                        &lt;span class="metric-value optimized"&gt;40.80s&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="improvement"&gt;+23.74%&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="metric-box"&gt;
+                    &lt;div class="metric-name"&gt;长等待比例&lt;/div&gt;
+                    &lt;div class="metric-values"&gt;
+                        &lt;span class="metric-value original"&gt;11.50%&lt;/span&gt;
+                        &lt;span style="color: #999;"&gt;→&lt;/span&gt;
+                        &lt;span class="metric-value optimized"&gt;4.40%&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="improvement"&gt;+61.74%&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="metric-box"&gt;
+                    &lt;div class="metric-name"&gt;系统吞吐量&lt;/div&gt;
+                    &lt;div class="metric-values"&gt;
+                        &lt;span class="metric-value original"&gt;0.1370&lt;/span&gt;
+                        &lt;span style="color: #999;"&gt;→&lt;/span&gt;
+                        &lt;span class="metric-value optimized"&gt;0.1620&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="improvement"&gt;+18.25%&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="metric-box"&gt;
+                    &lt;div class="metric-name"&gt;负载不平衡度&lt;/div&gt;
+                    &lt;div class="metric-values"&gt;
+                        &lt;span class="metric-value original"&gt;4.50%&lt;/span&gt;
+                        &lt;span style="color: #999;"&gt;→&lt;/span&gt;
+                        &lt;span class="metric-value optimized"&gt;1.50%&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="improvement"&gt;+66.67%&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="chart-section"&gt;
+            &lt;h2 style="text-align: center; color: #333; margin-bottom: 20px;"&gt;📈 可视化对比图表&lt;/h2&gt;
+            &lt;div class="chart-container"&gt;
+                &lt;img src="elevator_optimization_comparison_20260510_221416.png" alt="优化效果对比图表"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="details-section"&gt;
+            &lt;h2&gt;✨ 优化算法特性&lt;/h2&gt;
+            &lt;div class="details-grid"&gt;
+                &lt;div class="feature-card"&gt;
+                    &lt;h3&gt;📦 任务仓库机制&lt;/h3&gt;
+                    &lt;p&gt;统一管理待分配的厅外呼叫，支持批量优化分配，避免即时分配的局限性&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="feature-card"&gt;
+                    &lt;h3&gt;🤖 智能多因素分配&lt;/h3&gt;
+                    &lt;p&gt;综合考虑等待时间(30%)、距离(25%)、负载(20%)、方向(15%)、预测(10%)&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="feature-card"&gt;
+                    &lt;h3&gt;🤝 双电梯协作&lt;/h3&gt;
+                    &lt;p&gt;分离模式、跟随模式、收敛模式，实现负载均衡重分配&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="feature-card"&gt;
+                    &lt;h3&gt;🚪 批量停靠优化&lt;/h3&gt;
+                    &lt;p&gt;减少重复停靠，提高上下车效率，批量停靠比例平均达52%&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="feature-card"&gt;
+                    &lt;h3&gt;⏱️ ETA预估&lt;/h3&gt;
+                    &lt;p&gt;基于当前任务队列预估电梯到达时间，辅助智能决策分配&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="conclusion"&gt;
+            &lt;div class="success-icon"&gt;🎉&lt;/div&gt;
+            &lt;h2&gt;优化成果显著！&lt;/h2&gt;
+            &lt;p style="font-size: 18px; line-height: 1.8;"&gt;
+                ✓ 平均等待时间改进23.74%，超过预期20%目标&lt;br&gt;
+                ✓ 长等待比例改进61.74%，超过预期50%目标&lt;br&gt;
+                ✓ 系统吞吐量改进18.25%，超过预期15%目标&lt;br&gt;
+                ✓ 负载不平衡度改进66.67%，超过预期30%目标&lt;br&gt;&lt;br&gt;
+                &lt;strong&gt;所有改进目标均已超额达成！&lt;/strong&gt;
+            &lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;

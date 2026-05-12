@@ -1,0 +1,29 @@
+# Virtual environment
+elevator_env/
+venv/
+.env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Animation outputs
+*.gif
+*.mp4
+*.avi
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
