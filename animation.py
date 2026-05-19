@@ -169,15 +169,15 @@ class ElevatorAnimator:
 
                     if snapshot.state == ElevatorState.MOVING:
                         if snapshot.direction == Direction.UP:
-                            direction_texts[i].set_text('↑')
+                            direction_texts[i].set_text('�?)
                             direction_texts[i].set_color('#27ae60')
                         elif snapshot.direction == Direction.DOWN:
-                            direction_texts[i].set_text('↓')
+                            direction_texts[i].set_text('�?)
                             direction_texts[i].set_color('#e74c3c')
                         else:
                             direction_texts[i].set_text('')
                     elif snapshot.state == ElevatorState.DOOR_OPEN:
-                        direction_texts[i].set_text('◐')
+                        direction_texts[i].set_text('�?)
                         direction_texts[i].set_color('#9b59b6')
                     else:
                         direction_texts[i].set_text('')
@@ -425,13 +425,13 @@ def _monitor_process_with_animation(env, elevators, recorder):
 if __name__ == '__main__':
     from config import SimConfig
 
-    print("运行电梯仿真并生成动画...")
+    print("运行电梯仿真并生成动�?..")
     config = SimConfig.default()
     config.sim_end = 300
 
     recorder, _ = run_simulation_with_animation(config, sim_end=300)
 
-    print(f"仿真完成，共 {recorder.get_frame_count()} 帧")
+    print(f"仿真完成，共 {recorder.get_frame_count()} �?)
 
     animator = ElevatorAnimator(config, recorder)
 

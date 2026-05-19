@@ -10,11 +10,9 @@ from models import Passenger, HallCall, CarCall, Direction, ElevatorState, Eleva
 @dataclass
 class ElevatorOptimized:
     """
-    优化版电梯：在原版SCAN基础上增加以下特性
-    
+    优化版电梯：在原版SCAN基础上增加以下特�?    
     - 批量停靠优化
-    - 顺路性判断
-    - ETA预估
+    - 顺路性判�?    - ETA预估
     - 任务仓库集成
     """
     elevator_id: int
@@ -32,8 +30,7 @@ class ElevatorOptimized:
     car_calls: set = field(default_factory=set)
     hall_calls: Dict[int, HallCall] = field(default_factory=dict)
     
-    # 优化特性统计
-    batch_stop_count: int = 0
+    # 优化特性统�?    batch_stop_count: int = 0
     eta_used_count: int = 0
 
     def __post_init__(self):
@@ -41,11 +38,11 @@ class ElevatorOptimized:
         self.capacity = self.config.building.capacity
 
     @property
-    def is_full(self) -&gt; bool:
-        return len(self.passengers) &gt;= self.capacity
+    def is_full(self) -> bool:
+        return len(self.passengers) >= self.capacity
 
     @property
-    def is_idle(self) -&gt; bool:
+    def is_idle(self) -> bool:
         return self.state == ElevatorState.IDLE
 
     def add_car_call(self, floor: int, passenger: Passenger):
@@ -57,8 +54,7 @@ class ElevatorOptimized:
         call.assign_to(self.elevator_id)
         self.call_store.put(call)
         
-        # 同步到任务仓库
-        if self.task_warehouse:
+        # 同步到任务仓�?        if self.task_warehouse:
             self.task_warehouse.assign_to_elevator(call, self.elevator_id)
 
     def release_call(self, floor: int):
@@ -66,20 +62,17 @@ class ElevatorOptimized:
             call = self.hall_calls[floor]
             del self.hall_calls[floor]
             
-            # 同步到任务仓库
-            if self.task_warehouse:
+            # 同步到任务仓�?            if self.task_warehouse:
                 self.task_warehouse.complete_task(call, self.elevator_id, self.env.now)
 
-    def estimate_eta(self, target_floor: int) -&gt; float:
+    def estimate_eta(self, target_floor: int) -> float:
         """
-        预估到达目标楼层的时间
-        
+        预估到达目标楼层的时�?        
         Args:
             target_floor: 目标楼层
             
         Returns:
-            预计到达时间（秒）
-        """
+            预计到达时间（秒�?        """
         current_floor = round(self.position)
         if current_floor == target_floor:
             return 0.0
@@ -89,14 +82,13 @@ class ElevatorOptimized:
         eta = distance * self.config.time.t_travel
         
         # 预估停靠时间
-        # 简化计算：假设每层停靠约5秒
-        estimated_stops = min(distance, 3)
+        # 简化计算：假设每层停靠�?�?        estimated_stops = min(distance, 3)
         eta += estimated_stops * 5.0
         
         self.eta_used_count += 1
         return eta
 
-    def check_on_route(self, call_floor: int) -&gt; bool:
+    def check_on_route(self, call_floor: int) -> bool:
         """
         判断呼叫是否在当前运行路径上
         
@@ -112,11 +104,11 @@ class ElevatorOptimized:
         current = round(self.position)
         
         if self.direction == Direction.UP:
-            return call_floor &gt;= current
+            return call_floor >= current
         else:
             return call_floor &lt;= current
 
-    def _get_next_stop(self) -&gt; Optional[int]:
+    def _get_next_stop(self) -> Optional[int]:
         all_calls = set(self.car_calls)
         for call in self.hall_calls.values():
             if not call.completed:
@@ -128,7 +120,7 @@ class ElevatorOptimized:
         current = round(self.position)
 
         if self.direction == Direction.UP:
-            candidates = [f for f in all_calls if f &gt;= current and f in self.served_floors]
+            candidates = [f for f in all_calls if f >= current and f in self.served_floors]
             if candidates:
                 return min(candidates)
             candidates = [f for f in all_calls if f &lt; current and f in self.served_floors]
@@ -138,13 +130,13 @@ class ElevatorOptimized:
             candidates = [f for f in all_calls if f &lt;= current and f in self.served_floors]
             if candidates:
                 return max(candidates)
-            candidates = [f for f in all_calls if f &gt; current and f in self.served_floors]
+            candidates = [f for f in all_calls if f > current and f in self.served_floors]
             if candidates:
                 return min(candidates)
         else:
             if current in all_calls:
                 return current
-            closer_up = min([f for f in all_calls if f &gt;= current], default=None)
+            closer_up = min([f for f in all_calls if f >= current], default=None)
             closer_down = max([f for f in all_calls if f &lt;= current], default=None)
             if closer_up is None:
                 return closer_down
@@ -154,7 +146,7 @@ class ElevatorOptimized:
 
         return None
 
-    def _should_stop_at(self, floor: int) -&gt; bool:
+    def _should_stop_at(self, floor: int) -> bool:
         if floor not in self.served_floors:
             return False
 
@@ -175,7 +167,7 @@ class ElevatorOptimized:
     def _set_direction_to_target(self, target: Optional[int]):
         if target is None:
             self.direction = Direction.IDLE
-        elif target &gt; round(self.position):
+        elif target > round(self.position):
             self.direction = Direction.UP
         elif target &lt; round(self.position):
             self.direction = Direction.DOWN
@@ -186,8 +178,7 @@ class ElevatorOptimized:
         """
         开门处理：批量停靠优化
         
-        当有多个上下车乘客时，一次性处理
-        """
+        当有多个上下车乘客时，一次性处�?        """
         self.state = ElevatorState.DOOR_OPEN
         open_time = self.config.time.get_open_time(floor)
         yield self.env.timeout(open_time)
@@ -259,7 +250,7 @@ class ElevatorOptimized:
             else:
                 self.direction = Direction.IDLE
 
-    def get_snapshot(self) -&gt; ElevatorSnapshot:
+    def get_snapshot(self) -> ElevatorSnapshot:
         return ElevatorSnapshot(
             id=self.elevator_id,
             position=self.position,

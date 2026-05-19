@@ -13,8 +13,7 @@ from smart_assigner import SmartAssigner, TriggerType
 
 class ElevatorSimulationOptimized:
     """
-    优化版仿真引擎：整合任务仓库、智能分配器、双电梯协作等特性
-    """
+    优化版仿真引擎：整合任务仓库、智能分配器、双电梯协作等特�?    """
     def __init__(self, config: SimConfig = None):
         self.config = config or SimConfig.default()
         self.env = simpy.Environment()
@@ -54,16 +53,14 @@ class ElevatorSimulationOptimized:
             task_warehouse=self.task_warehouse
         )
 
-        # 初始化调度器（仍保留原有接口）
-        self.dispatcher = DispatcherOptimized(
+        # 初始化调度器（仍保留原有接口�?        self.dispatcher = DispatcherOptimized(
             config=self.config,
             elevators=self.elevators,
             task_warehouse=self.task_warehouse,
             smart_assigner=self.smart_assigner
         )
 
-        # 乘客生成器
-        self.generator = PassengerGeneratorOptimized(
+        # 乘客生成�?        self.generator = PassengerGeneratorOptimized(
             env=self.env,
             config=self.config,
             dispatcher=self.dispatcher,
@@ -85,10 +82,9 @@ class ElevatorSimulationOptimized:
             self.statistics.record_snapshot(snapshots)
     
     def _periodic_assignment_process(self):
-        """周期性触发任务重新分配"""
+        """周期性触发任务重新分�?""
         while True:
-            yield self.env.timeout(5.0)  # 每5秒尝试一次重新分配
-            
+            yield self.env.timeout(5.0)  # �?秒尝试一次重新分�?            
             # 获取电梯快照
             snapshot_dict = {}
             for e in self.elevators:
@@ -108,8 +104,7 @@ class ElevatorSimulationOptimized:
     
     def _get_current_period(self):
         """确定当前时段（简单实现）"""
-        # 这里可以根据实际需求实现更复杂的时段划分
-        return "normal"
+        # 这里可以根据实际需求实现更复杂的时段划�?        return "normal"
 
     def run(self):
         self.setup()
@@ -119,8 +114,7 @@ class ElevatorSimulationOptimized:
 
 class DispatcherOptimized(Dispatcher):
     """
-    优化版调度器：集成任务仓库和智能分配器
-    """
+    优化版调度器：集成任务仓库和智能分配�?    """
     def __init__(self, config, elevators, task_warehouse, smart_assigner):
         super().__init__(config, elevators)
         self.task_warehouse = task_warehouse
@@ -130,8 +124,7 @@ class DispatcherOptimized(Dispatcher):
         """
         优化的调度逻辑
         
-        1. 将呼叫加入任务仓库
-        2. 使用智能分配器选择电梯
+        1. 将呼叫加入任务仓�?        2. 使用智能分配器选择电梯
         3. 记录统计信息
         """
         # 获取电梯快照
@@ -143,11 +136,9 @@ class DispatcherOptimized(Dispatcher):
         # 确定当前时段
         current_period = "normal"
         
-        # 将呼叫加入任务仓库
-        self.task_warehouse.add_call(call, self.elevators[0].env.now if self.elevators else 0.0)
+        # 将呼叫加入任务仓�?        self.task_warehouse.add_call(call, self.elevators[0].env.now if self.elevators else 0.0)
         
-        # 使用智能分配器
-        assignments = self.smart_assigner.assign(
+        # 使用智能分配�?        assignments = self.smart_assigner.assign(
             elevators=snapshot_dict,
             current_time=self.elevators[0].env.now if self.elevators else 0.0,
             trigger_type=TriggerType.NEW_CALL,
