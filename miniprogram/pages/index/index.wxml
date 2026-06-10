@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="header">
+    <view class="title">🚀 电梯监控系统</view>
+    <view class="subtitle">实时监控 · 智能调度</view>
+  </view>
+
+  <view class="elevator-grid">
+    <view class="elevator-card" wx:for="{{elevators}}" wx:key="id">
+      <view class="elevator-header">
+        <view class="elevator-name">{{item.name}}</view>
+        <view class="elevator-status status-{{item.status}}">{{getStatusText(item.status)}}</view>
+      </view>
+      <view class="floor-display">
+        <view class="floor-number">{{item.floor}}</view>
+        <view class="floor-label">当前楼层</view>
+      </view>
+      <view class="direction-row">
+        <view class="direction-btn {{item.direction === 'up' ? 'active' : ''}}">⬆️ 上行</view>
+        <view class="direction-btn {{item.direction === 'down' ? 'active' : ''}}">⬇️ 下行</view>
+      </view>
+      <view class="eta-section">
+        <view class="eta-title">到达目标楼层 ETA</view>
+        <view class="eta-value">{{selectedFloor ? calculateETA(item, selectedFloor) : '--'}}s</view>
+      </view>
+      <view class="passenger-info">🧑‍🤝‍🧑 {{item.passengers}}/12 人</view>
+    </view>
+  </view>
+
+  <view class="system-info">
+    <view class="info-item">
+      <view class="info-label">系统状态</view>
+      <view class="info-value status-normal">✅ 正常运行</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">当前时间</view>
+      <view class="info-value">{{currentTime}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">服务楼层</view>
+      <view class="info-value">1-17层</view>
+    </view>
+  </view>
+</view>

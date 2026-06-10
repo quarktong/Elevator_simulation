@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="header">
+    <view class="title">📱 呼叫电梯</view>
+    <view class="subtitle">选择目标楼层</view>
+  </view>
+
+  <view class="floor-selector-section">
+    <view class="section-title">请选择楼层</view>
+    <view class="floor-grid">
+      <view 
+        class="floor-btn {{selectedFloor === floor ? 'selected' : ''}}" 
+        wx:for="{{floors}}" 
+        wx:key="floor"
+        bindtap="selectFloor"
+        data-floor="{{floor}}"
+      >
+        {{floor}}
+      </view>
+    </view>
+    
+    <view class="selected-info">
+      <view class="selected-label">您选择的楼层</view>
+      <view class="selected-floor">{{selectedFloor || '--'}}</view>
+    </view>
+  </view>
+
+  <view class="call-result" wx:if="{{callResult}}">
+    <view class="result-title">📡 呼叫结果</view>
+    <view class="result-elevator">
+      <view class="elevator-icon">{{callResult.name}}</view>
+      <view class="elevator-info">
+        <view class="elevator-name-text">{{callResult.name}} 正在前往</view>
+        <view class="elevator-status-text">当前楼层: {{callResult.currentFloor}} 层</view>
+      </view>
+      <view class="eta-display">
+        <view class="eta-label">预计到达</view>
+        <view class="eta-time">{{callResult.eta}}s</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="quick-calls">
+    <view class="quick-title">快捷楼层</view>
+    <view class="quick-grid">
+      <view class="quick-btn" bindtap="selectFloor" data-floor="1">1层</view>
+      <view class="quick-btn" bindtap="selectFloor" data-floor="17">顶层</view>
+      <view class="quick-btn" bindtap="selectFloor" data-floor="9">中层</view>
+      <view class="quick-btn" bindtap="selectFloor" data-floor="5">5层</view>
+    </view>
+  </view>
+
+  <view class="hint-text">💡 点击楼层按钮即可呼叫电梯，系统将自动分配最近的电梯</view>
+</view>

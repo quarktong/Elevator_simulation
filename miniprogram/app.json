@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/elevator/elevator"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "电梯监控",
+    "navigationBarBackgroundColor": "#667eea",
+    "backgroundColor": "#f5f5f5"
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#667eea",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "实时监控",
+        "iconPath": "images/monitor.png",
+        "selectedIconPath": "images/monitor-active.png"
+      },
+      {
+        "pagePath": "pages/elevator/elevator",
+        "text": "呼叫电梯",
+        "iconPath": "images/call.png",
+        "selectedIconPath": "images/call-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
