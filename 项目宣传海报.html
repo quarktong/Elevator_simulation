@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电梯仿真系统 - 宣传海报</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .poster {
+            width: 800px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 60px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .title {
+            font-size: 56px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 8px;
+        }
+        
+        .highlights {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .highlights-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .highlights-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+        
+        .highlight-item::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .cta-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .github-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .elevator-animation {
+            position: absolute;
+            right: 60px;
+            top: 150px;
+            font-size: 80px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .floating:nth-child(1) { top: 100px; left: 50px; animation-delay: 0s; }
+        .floating:nth-child(2) { top: 200px; right: 100px; animation-delay: 0.5s; }
+        .floating:nth-child(3) { bottom: 150px; left: 100px; animation-delay: 1s; }
+        .floating:nth-child(4) { bottom: 200px; right: 50px; animation-delay: 1.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="floating">📊</div>
+        <div class="floating">🚀</div>
+        <div class="floating">🎯</div>
+        <div class="floating">⚡</div>
+        
+        <div class="elevator-animation">🛗</div>
+        
+        <div class="content">
+            <div class="header">
+                <div class="badge">🏢 基于SimPy的智能电梯调度系统</div>
+                <h1 class="title">电梯仿真系统</h1>
+                <p class="subtitle">电梯分组策略优化 · 智能调度算法 · 性能深度分析</p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">智能调度算法</div>
+                    <div class="feature-desc">基于SCAN算法优化，引入多因素评分机制，实现电梯智能分配与路径规划</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">分组策略对比</div>
+                    <div class="feature-desc">深入分析奇偶分组、长链结构、不分组等多种策略，量化评估各方案优劣</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">效率提升显著</div>
+                    <div class="feature-desc">优化后等待时间减少40%+，系统吞吐量提升35%+，负载均衡度改善60%+</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔬</div>
+                    <div class="feature-title">数学理论支撑</div>
+                    <div class="feature-desc">基于排队论和柔性制造理论，建立完整的效率评估模型与数学推导</div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">15+</div>
+                    <div class="stat-label">对比实验次数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2089</div>
+                    <div class="stat-label">代码行数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">效率提升</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">17</div>
+                    <div class="stat-label">仿真楼层数</div>
+                </div>
+            </div>
+            
+            <div class="highlights">
+                <div class="highlights-title">
+                    <span>✨</span> 核心特性
+                </div>
+                <div class="highlights-list">
+                    <div class="highlight-item">任务仓库统一管理机制</div>
+                    <div class="highlight-item">智能多因素分配器</div>
+                    <div class="highlight-item">双电梯协作机制</div>
+                    <div class="highlight-item">ETA到达时间预测</div>
+                    <div class="highlight-item">批量停靠优化</div>
+                    <div class="highlight-item">实时动画可视化</div>
+                    <div class="highlight-item">微信小程序监控</div>
+                    <div class="highlight-item">楼层显示屏支持</div>
+                </div>
+            </div>
+            
+            <div class="cta">
+                <div class="cta-text">开源项目 · 欢迎参与</div>
+                <a href="https://github.com/quarktong/Elevator_simulation" class="cta-button">
+                    🌟 访问 GitHub 仓库
+                </a>
+            </div>
+            
+            <div class="footer">
+                <p class="footer-text">
+                    基于 SimPy 事件驱动仿真框架 · Python 3.x · MIT License<br>
+                    <a href="https://github.com/quarktong/Elevator_simulation" class="github-link">github.com/quarktong/Elevator_simulation</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
